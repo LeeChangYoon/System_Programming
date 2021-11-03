@@ -22,9 +22,9 @@
 
 
 ;Union
-(define (union A B)
-  (if (equal? A null) B
-      (adjoin (car A) (union (cdr A) B))))
+(define (union S1 S2)
+  (if (equal? S1 null) S2
+      (adjoin (car S1) (union (cdr S1) S2))))
 
 
 ;Subtract

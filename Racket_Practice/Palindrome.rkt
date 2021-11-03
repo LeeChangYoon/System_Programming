@@ -17,36 +17,35 @@
       (last (cdr str))))
 
 
-;Eliminate
-(define (eliminate str)
-  (if (equal? (cdr str) null)
-      '()
-      (cons (car str) (eliminate (cdr str)))))
+;First-1
+
+(define (first-1 list) (cdr list))
+
+
+;Last-1
+
+(define (last-1 list)
+  (if (equal? (cdr list) null) '()
+      (cons (car list) (last-1 (cdr list)))))
 
 
 ;Palindrome?
-(define (palindrome? list)
+(define (palindrome? str)
+  (define list (string->list str))
+
   (cond
     ([equal? list null] #t)
     ([equal? (cdr list) null] #t)
-    ([equal? (first list) (last list)] (palindrome? (cdr (eliminate list))))
+    ([equal? (first list) (last list)]
+      (define str (list->string (first-1 (last-1 list))))
+      (palindrome? str))
     (else #f)))
 
 
-;Palinrome-checker
-(define (palindrome-checker string)
-  (define list (string->list string))
-
-  (if (palindrome? list)
-      (display "The word is palindrome.\n")
-      (display "The word is not palindrome.\n")))
-
 
 ;Main
-
-;(trace palindrome?)
-(palindrome-checker "abcdcba")
-(palindrome-checker "aa")
-(palindrome-checker "mom")
-(palindrome-checker "abcdbbb")
+(palindrome? "abcdcba")
+(palindrome? "aa")
+(palindrome? "mom")
+(palindrome? "abcdbbb")
   

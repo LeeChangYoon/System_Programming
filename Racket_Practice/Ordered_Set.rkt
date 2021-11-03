@@ -8,28 +8,27 @@
 
 
 ;Ordered Search
-(define (o-search x oSet)
+(define (o-search x S)
   (cond
-    ([equal? oSet null] #f)
-    ([= x (car oSet)] #t)
-    ([< x (car oSet)] #f)
-    (else (o-search x (cdr oSet)))))
+    ([equal? S null] #f)
+    ([= x (car S)] #t)
+    ([< x (car S)] #f)
+    (else (o-search x (cdr S)))))
 
 
 ;Ordered Adjoin
-(define (o-adjoin x oSet)
-  (cond
-    ([equal? oSet null] (cons x '()))
-    ([= x (car oSet)] oSet)
-    ([< x (car oSet)] (cons x oSet))
-    (else (cons (car oSet) (o-adjoin x (cdr oSet))))))
+(define (o-adjoin x S)
+(cond
+    ([equal? S null] (cons x '()))
+    ([= x (car S)] S)
+    ([< x (car S)] (cons x S))
+    (else (cons (car S) (o-adjoin x (cdr S))))))
 
 
 ;Ordered
-(define (ordered Set)
-  (if (equal? Set null)
-      '()
-      (o-adjoin (car Set) (ordered (cdr Set)))))
+(define (sort S)
+ (if (equal? S null) '()
+  (o-adjoin (car S) (sort (cdr S)))))
 
 
 ;Ordered Subtract
@@ -57,8 +56,8 @@
 (define Set2 '(5 3 2 4))
 
 ;(trace ordered)
-(define oSet1 (ordered Set1))
-(define oSet2 (ordered Set2))
+(define oSet1 (sort Set1))
+(define oSet2 (sort Set2))
 ;(ordered '(1 1 1 1 1))
 ;(ordered '(1 3 5 7 9))
 ;(ordered '(9 1 3 5 7 ))
